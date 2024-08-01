@@ -1,0 +1,65 @@
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-10 mx-auto">
+    <!-- Title -->
+    <div class="flex flex-col text-center w-full mb-10">
+      <h1 class="sm:text-3xl text-lg font-medium title-font text-gray-900">
+        People who sent a form on website
+      </h1>
+    </div>
+
+    <!-- Search Bar -->
+    <div
+      class="flex flex-col md:flex-row justify-center items-center mb-10 space-y-2 md:space-y-0 md:space-x-4"
+    >
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search for posts..."
+          class="border border-gray-300 rounded-lg py-2 px-4 w-80 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <svg
+          class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+    </div>
+
+    <!-- User Cards -->
+    <div class="flex flex-wrap -m-2">
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div
+          class="h-full flex items-center border-gray-200 border shadow-md p-4 rounded-lg"
+        >
+          <div class="flex-grow">
+            <h2 class="text-gray-900 title-font font-medium">Sub Name</h2>
+            <p class="text-gray-500">email</p>
+          </div>
+          <div class="flex flex-row items-end space-x-2">
+            <!-- Edit button -->
+            <button
+              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Edit
+            </button>
+            <!-- Delete button -->
+            <button
+              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Add more user cards as needed -->
+    </div>
+  </div>
+</section>
