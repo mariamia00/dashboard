@@ -1,4 +1,7 @@
-<header class="text-gray-100 body-font bg-gray-700">
+<header
+  *ngIf="authService.curentUserSignal()"
+  class="text-gray-100 body-font bg-gray-700"
+>
   <div
     class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
   >
@@ -6,16 +9,25 @@
       class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"
     >
       <a routerLink="/" class="mr-5">Overview</a>
-      <a class="mr-5" routerLink="/dashboard/site-data">Website Info</a>
+      <a routerLink="/dashboard/site-data" class="mr-5">Website Info</a>
       <a routerLink="/dashboard/products" class="mr-5">Products</a>
-      <a class="mr-5" routerLink="/dashboard/subscribers">Subscribers</a>
-      <a class="mr-5" routerLink="/dashboard/reviews">Reviews</a>
-      <a class="mr-5" routerLink="/dashboard/trainers">Trainers</a>
+      <a routerLink="/dashboard/subscribers" class="mr-5">Subscribers</a>
+      <a routerLink="/dashboard/reviews" class="mr-5">Reviews</a>
+      <a routerLink="/dashboard/trainers" class="mr-5">Trainers</a>
     </nav>
     <button
+      *ngIf="authService.curentUserSignal()"
+      (click)="logout()"
       class="inline-flex items-center bg-gray-600 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-500 rounded text-base mt-4 md:mt-0"
     >
       Logout
+    </button>
+    <button
+      *ngIf="!authService.curentUserSignal()"
+      routerLink="login"
+      class="inline-flex items-center bg-gray-600 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-500 rounded text-base mt-4 md:mt-0"
+    >
+      Login
     </button>
   </div>
 </header>

@@ -10,33 +10,59 @@
       <h2 class="text-gray-600 text-lg font-medium title-font mb-5">
         You can't escape the login :P
       </h2>
-      <div class="relative mb-4">
-        <label for="username" class="leading-7 text-sm text-gray-900"
-          >Username</label
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="relative mb-4">
+          <label for="email" class="leading-7 text-sm text-gray-900"
+            >email</label
+          >
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
+          <div
+            *ngIf="email?.invalid && (email?.touched || email?.dirty)"
+            class="text-red-500 text-sm"
+          >
+            <div *ngIf="email?.errors?.['required']">email is required.</div>
+            <div *ngIf="email?.errors?.['minlength']">
+              email must be at least 3 characters long.
+            </div>
+          </div>
+        </div>
+        <div class="relative mb-4">
+          <label for="password" class="leading-7 text-sm text-gray-900"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          />
+          <div
+            *ngIf="password?.invalid && (password?.touched || password?.dirty)"
+            class="text-red-500 text-sm"
+          >
+            <div *ngIf="password?.errors?.['required']">
+              Password is required.
+            </div>
+            <div *ngIf="password?.errors?.['minlength']">
+              Password must be at least 6 characters long.
+            </div>
+          </div>
+        </div>
+        <div *ngIf="loginError" class="text-red-500 text-sm mb-4">
+          {{ loginError }}
+        </div>
+        <button
+          type="submit"
+          class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
         >
-        <input
-          type="text"
-          id="username"
-          name="username"
-          class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        />
-      </div>
-      <div class="relative mb-4">
-        <label for="password" class="leading-7 text-sm text-gray-900"
-          >Password</label
-        >
-        <input
-          type="password"
-          id="password"
-          name="password"
-          class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        />
-      </div>
-      <button
-        class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-      >
-        Login
-      </button>
+          Login
+        </button>
+      </form>
     </div>
   </div>
 </section>

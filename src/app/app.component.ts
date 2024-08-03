@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,20 @@ import { NavComponent } from './components/nav/nav.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  title = 'db-admin';
+export class AppComponent implements OnInit {
+  title = 'MIT Admin';
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe((user) => {
+      if (user) {
+        this.authService.curentUserSignal.set({
+          email: user.email!,
+        });
+      } else {
+        this.authService.curentUserSignal.set(null);
+      }
+    });
+  }
 }
