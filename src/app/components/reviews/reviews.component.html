@@ -1,13 +1,17 @@
-<!-- navbar -->
+<!-- src/app/reviews/reviews.component.html -->
 <div class="bg-gray-300 text-gray-800">
   <nav class="container mx-auto px-4 py-2 flex items-center justify-between">
-    <!-- Navigation Links -->
     <div class="flex space-x-4 cursor-pointer text-gray-800">
-      <a class="hover:underline">Pending Reviews</a>
-      <a class="hover:underline">Approved Reviews</a>
-      <a class="hover:underline">Rejected Reviews</a>
+      <a (click)="setFilter('pending')" class="hover:underline"
+        >Pending Reviews</a
+      >
+      <a (click)="setFilter('approved')" class="hover:underline"
+        >Approved Reviews</a
+      >
+      <a (click)="setFilter('rejected')" class="hover:underline"
+        >Rejected Reviews</a
+      >
     </div>
-    <!-- Search Bar -->
     <div class="relative">
       <input
         type="text"
@@ -30,58 +34,69 @@
     </div>
   </nav>
 </div>
+
 <section class="text-gray-600 body-font">
   <div class="container px-5 pt-5 pb-10 mx-auto">
-    <!-- Title -->
     <div class="flex flex-col items-center text-center my-8">
       <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-        Pending Reviews
+        {{ currentFilter | titlecase }} Reviews
       </h1>
     </div>
-    <!-- Card Container -->
-    <div class="flex flex-wrap -m-4">
-      <div class="lg:w-1/3 lg:mb-0 mb-6 p-4">
+    <!-- Conditional message for no reviews -->
+    <div
+      *ngIf="reviews.length === 0"
+      class="flex justify-center items-center h-64"
+    >
+      <p class="text-gray-500 text-xl">There is nothing to see</p>
+    </div>
+    <!-- Display reviews if available -->
+    <div *ngIf="reviews.length > 0" class="flex flex-wrap -m-4">
+      <div *ngFor="let review of reviews" class="lg:w-1/3 lg:mb-0 mb-6 p-4">
         <div
-          class="h-full text-center border-2 border-gray-200 px-4 py-6 rounded-lg"
+          class="h-full text-center border-2 border-gray-200 px-4 py-6 rounded-lg relative"
         >
+          <div
+            class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-500 text-white text-xs font-semibold px-2 py-1 rounded-full"
+          >
+            {{ review.status | titlecase }}
+          </div>
           <img
             alt="testimonial"
-            class="w-32 h-32 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
-            src="https://dummyimage.com/302x302"
+            class="w-32 h-32 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100 mt-4"
+            [src]="review.imageUrl"
           />
           <h2
             class="text-gray-900 font-medium title-font tracking-wider text-sm"
           >
-            HOLDEN CAULFIELD
+            {{ review.name }}
           </h2>
-          <p class="text-gray-500">01/12/2024</p>
-          <span class="inline-block h-1 w-10 rounded bg-indigo-500 my-4"></span>
-          <p class="leading-relaxed overflow-hidden text-ellipsis max-h-20">
-            Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki
-            taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman
-            taiyaki vape DIY tote bag drinking vinegar cronut adaptogen squid
-            fanny pack vaporware.
+          <p class="text-gray-500">{{ review.timestamp | date }}</p>
+          <p>{{ "★".repeat(review.rating) }}</p>
+          <p class="leading-relaxed overflow-hidden text-sm">
+            {{ review.comment }}
           </p>
-          <div class="flex items-center flex-wrap mt-4 space-x-2">
+          <div class="flex items-center flex-wrap mt-4 space-x-2 text-sm">
             <button
-              class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
-            >
-              Read
-            </button>
-            <button
+              (click)="approveReview(review.id)"
               class="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600"
             >
               Approve
             </button>
             <button
-              class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600"
+              (click)="rejectReview(review.id)"
+              class="bg-orange-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600"
             >
               Reject
+            </button>
+            <button
+              (click)="deleteReview(review.id)"
+              class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
+            >
+              Delete
             </button>
           </div>
         </div>
       </div>
-      <!-- Add more cards as needed -->
     </div>
   </div>
 </section>
