@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './reviews.component.html',
-  styleUrl: './reviews.component.css',
+  styleUrls: ['./reviews.component.css'],
 })
-export class ReviewsComponent {
+export class ReviewsComponent implements OnInit {
   reviews: any[] = [];
-  currentFilter: string = 'pending';
+  filteredReviews: any[] = [];
+  currentFilter: string = 'all'; // Default filter is now 'all'
+  selectedStars: string = ''; // Dropdown for stars
+  selectedDate: string = ''; // Dropdown for date
 
   constructor(private firebaseService: FirebaseService) {}
 
@@ -20,9 +24,50 @@ export class ReviewsComponent {
   }
 
   fetchReviews() {
-    this.firebaseService.getReviews(this.currentFilter).subscribe((data) => {
-      this.reviews = data;
-    });
+    this.firebaseService
+      .getReviews(this.currentFilter === 'all' ? null : this.currentFilter)
+      .subscribe((data) => {
+        this.reviews = data;
+        this.filterReviews();
+      });
+  }
+
+  filterReviews() {
+    let filtered = this.reviews;
+
+    // Filter by number of stars
+    if (this.selectedStars) {
+      const stars = parseInt(this.selectedStars, 10);
+
+      filtered = filtered.filter((review) => {
+        const reviewRating =
+          typeof review.rating === 'string'
+            ? parseInt(review.rating, 10)
+            : review.rating;
+
+        return reviewRating === stars;
+      });
+    }
+
+    // Filter by date
+    if (this.selectedDate) {
+      const year =
+        this.selectedDate === 'before-2023' ? 2023 : new Date().getFullYear();
+      const dateCondition =
+        this.selectedDate === 'before-2023'
+          ? (date: Date) => date.getFullYear() < year
+          : (date: Date) => date.getFullYear() >= year;
+
+      filtered = filtered.filter((review) =>
+        dateCondition(new Date(review.timestamp))
+      );
+    }
+
+    this.filteredReviews = filtered;
+  }
+
+  generateStars(rating: number): any[] {
+    return new Array(Math.floor(rating));
   }
 
   setFilter(filter: string) {
@@ -47,8 +92,14 @@ export class ReviewsComponent {
   }
 
   deleteReview(reviewId: string) {
-    this.firebaseService.deleteReview(reviewId).subscribe(() => {
-      this.fetchReviews();
-    });
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this review?'
+    );
+
+    if (confirmed) {
+      this.firebaseService.deleteReview(reviewId).subscribe(() => {
+        this.fetchReviews();
+      });
+    }
   }
 }

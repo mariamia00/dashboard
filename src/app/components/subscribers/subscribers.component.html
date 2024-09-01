@@ -14,7 +14,7 @@
       <div class="relative">
         <input
           type="text"
-          placeholder="Search for posts..."
+          placeholder="Search for people..."
           class="border border-gray-300 rounded-lg py-2 px-4 w-80 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         <svg
@@ -34,32 +34,31 @@
     </div>
 
     <!-- User Cards -->
-    <div class="flex flex-wrap -m-2">
-      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+    <div class="flex flex-wrap -m-4">
+      <!-- Repeat the above block for more cards -->
+      <div class="p-4 md:w-1/3 sm:w-1/2 w-full">
         <div
-          class="h-full flex items-center border-gray-200 border shadow-md p-4 rounded-lg"
+          class="flex flex-col border-2 rounded-lg border-gray-200 border-opacity-50 p-2 h-full"
         >
           <div class="flex-grow">
-            <h2 class="text-gray-900 title-font font-medium">Sub Name</h2>
-            <p class="text-gray-500">email</p>
+            <small class="block">12.01.2024</small>
+            <h2 class="text-gray-900 font-bold text-base break-words">
+              Long name here
+            </h2>
+            <p class="leading-relaxed text-base mb-2 break-words">
+              email.maria_mia00000yahoo.com
+            </p>
           </div>
-          <div class="flex flex-row items-end space-x-2">
-            <!-- Edit button -->
-            <button
-              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-            >
+          <div class="flex justify-between">
+            <button class="text-indigo-500 inline-flex items-center">
               Edit
             </button>
-            <!-- Delete button -->
-            <button
-              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-            >
+            <button class="text-red-500 inline-flex items-center">
               Delete
             </button>
           </div>
         </div>
       </div>
-      <!-- Add more user cards as needed -->
     </div>
   </div>
 </section>
