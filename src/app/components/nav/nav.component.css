@@ -1,0 +1,6 @@
+.disabled {
+  pointer-events: none; /* Disable clicking */
+  color: #6b7280; /* Optional: Grey out text to indicate it's disabled */
+  cursor: not-allowed; /* Optional: Show 'not-allowed' cursor */
+  text-decoration: none; /* Optional: Remove underline if you want */
+}

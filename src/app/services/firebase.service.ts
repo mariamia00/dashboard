@@ -38,5 +38,25 @@ export class FirebaseService {
     return from(remove(dbRef));
   }
 
+  countReviews(): Observable<number> {
+    const dbRef = ref(this.db, 'reviews');
+    return from(get(dbRef)).pipe(
+      map((snapshot) => {
+        const reviews = snapshot.val();
+        return reviews ? Object.keys(reviews).length : 0;
+      })
+    );
+  }
+
+  countContacts(): Observable<number> {
+    const dbRef = ref(this.db, 'studenti');
+    return from(get(dbRef)).pipe(
+      map((snapshot) => {
+        const contacts = snapshot.val();
+        return contacts ? Object.keys(contacts).length : 0;
+      })
+    );
+  }
+
   getSubscribers() {}
 }

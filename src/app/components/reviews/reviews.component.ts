@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatDialogModule, MatButtonModule],
   templateUrl: './reviews.component.html',
   styleUrls: ['./reviews.component.css'],
 })
@@ -17,7 +20,10 @@ export class ReviewsComponent implements OnInit {
   selectedStars: string = ''; // Dropdown for stars
   selectedDate: string = ''; // Dropdown for date
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(
+    private firebaseService: FirebaseService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.fetchReviews();
@@ -92,14 +98,19 @@ export class ReviewsComponent implements OnInit {
   }
 
   deleteReview(reviewId: string) {
-    const confirmed = window.confirm(
-      'Are you sure you want to delete this review?'
-    );
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        message: '⚠ A deleted review cannot be recovered! ⚠',
+      },
+    });
 
-    if (confirmed) {
-      this.firebaseService.deleteReview(reviewId).subscribe(() => {
-        this.fetchReviews();
-      });
-    }
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.firebaseService.deleteReview(reviewId).subscribe(() => {
+          this.fetchReviews();
+        });
+      }
+    });
   }
 }

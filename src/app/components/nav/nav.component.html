@@ -9,11 +9,13 @@
       class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"
     >
       <a routerLink="/" class="mr-5">Overview</a>
-      <a routerLink="/dashboard/site-data" class="mr-5">Website Info</a>
-      <a routerLink="/dashboard/products" class="mr-5">Products</a>
-      <a routerLink="/dashboard/subscribers" class="mr-5">Subscribers</a>
+      <a routerLink="/dashboard/site-data" class="mr-5 disabled"
+        >Website Info</a
+      >
+      <a routerLink="/dashboard/products" class="mr-5 disabled">Products</a>
+      <a routerLink="/dashboard/subscribers" class="mr-5">Contacts</a>
       <a routerLink="/dashboard/reviews" class="mr-5">Reviews</a>
-      <a routerLink="/dashboard/trainers" class="mr-5">Trainers</a>
+      <a routerLink="/dashboard/trainers" class="mr-5 disabled">Trainers</a>
     </nav>
     <button
       *ngIf="authService.curentUserSignal()"

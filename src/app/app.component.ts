@@ -3,16 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
 import { AuthService } from './services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent, NavComponent],
+  imports: [RouterOutlet, FooterComponent, NavComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  title = 'MIT Admin';
+  isLoading = true; // Start with loading
 
   constructor(private authService: AuthService) {}
 
@@ -22,8 +23,10 @@ export class AppComponent implements OnInit {
         this.authService.curentUserSignal.set({
           email: user.email!,
         });
+        this.isLoading = false; // Data loaded
       } else {
         this.authService.curentUserSignal.set(null);
+        this.isLoading = false; // Data loaded
       }
     });
   }
