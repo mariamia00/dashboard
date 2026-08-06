@@ -1,27 +1,45 @@
-# DbAdmin
+# MIT Dashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.7.
+## Overview
 
-## Development server
+This project is an Angular dashboard built for internal administration purposes.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+It allows administrators to view and manage information submitted by users through the website, including customer reviews and contact form submissions.
 
-## Code scaffolding
+The project was developed as part of a larger web application.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Features
 
-## Build
+- User authentication (Firebase Authentication)
+- Dashboard interface
+- Display customer reviews
+- Display contact form submissions
+- Responsive Angular UI
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Technologies
 
-## Running unit tests
+- Angular
+- TypeScript
+- Firebase Authentication
+- Firebase Firestore
+- HTML
+- CSS
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Notes
 
-## Running end-to-end tests
+This repository contains only the dashboard module of the original application.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Some configuration files (such as Firebase credentials) are intentionally excluded for security reasons.
 
-## Further help
+## Installation
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+npm install
+ng serve
+```
+
+The project requires your own Firebase configuration to run locally.
+
+## Author
+
+Maria Popa
